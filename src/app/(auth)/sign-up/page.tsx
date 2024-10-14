@@ -4,7 +4,6 @@ import SignUpCard from "@/features/auth/components/sign-up-card";
 
 const SignUpPage = async () => {
   const user = await getCurrent();
-  console.log("🚀 ~ user:", user)
 
   if (user) redirect("/");
   
