@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from "react";
 import { Loader, PlusIcon } from "lucide-react";
 import { useQueryState } from "nuqs";
 
@@ -7,17 +8,21 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DottedSeparator from "@/components/dotted-separator";
 
-import { useCreateTaskModal } from "../hooks/use-create-task-modal";
-import { useGetTasks } from "../api/use-get-tasks";
-import { useWorkspaceId } from "@/features/workspaces/hooks/useWorkspaceId";
 import DataFilters from "./data-filters";
-import { useTaskFilters } from "../hooks/use-task-filters";
 import { DataTable } from "./data-table";
-import { columns } from "./columns";
 import DataKanban from "./data-kanban";
-import { useCallback } from "react";
-import { TaskStatus } from "../types";
+import { columns } from "./columns";
+import DataCalendar from "./data-calendar";
+
+import { useWorkspaceId } from "@/features/workspaces/hooks/useWorkspaceId";
+
+import { useCreateTaskModal } from "../hooks/use-create-task-modal";
+import { useTaskFilters } from "../hooks/use-task-filters";
+
+import { useGetTasks } from "../api/use-get-tasks";
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
+
+import { TaskStatus } from "../types";
 
 const TaskViewSwitcher = () => {
   const [{ projectId, status, assigneeId, search, dueDate }] = useTaskFilters();
@@ -88,8 +93,8 @@ const TaskViewSwitcher = () => {
                 onChange={onKanbanChange}
               />
             </TabsContent>
-            <TabsContent value="calendar" className="mt-0">
-              {JSON.stringify(tasks)}
+            <TabsContent value="calendar" className="mt-0 h-full pb-4">
+              <DataCalendar data={tasks?.documents ?? []} />
             </TabsContent>
           </>
         )}
