@@ -23,6 +23,7 @@ import { useGetTasks } from "../api/use-get-tasks";
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
 
 import { TaskStatus } from "../types";
+import { useProjectId } from "@/features/projects/hooks/use-project-id";
 
 interface TaskViewSwitcherProps {
   hideProjectFilter?: boolean;
@@ -35,12 +36,13 @@ const TaskViewSwitcher = ({ hideProjectFilter }: TaskViewSwitcherProps) => {
     defaultValue: "table",
   });
   const workspaceId = useWorkspaceId();
+  const paramProjectId = useProjectId();
 
   const { mutate: bulkUpdate } = useBulkUpdateTasks();
 
   const { data: tasks, isLoading: isTasksLoading } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: paramProjectId || projectId,
     status,
     assigneeId,
     search,
@@ -51,7 +53,7 @@ const TaskViewSwitcher = ({ hideProjectFilter }: TaskViewSwitcherProps) => {
     (tasks: { $id: string; status: TaskStatus; position: number }[]) => {
       bulkUpdate({ json: { tasks } });
     },
-    []
+    [bulkUpdate]
   );
   const { open } = useCreateTaskModal();
 

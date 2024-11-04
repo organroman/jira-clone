@@ -22,7 +22,7 @@ export const ProjectIdClient = () => {
   const { data: analytics, isLoading: isLoadingAnalytics } =
     useGetProjectAnalytics({ projectId });
 
-  const isLoading = isLoadingProject || isLoadingProject;
+  const isLoading = isLoadingProject || isLoadingAnalytics;
 
   if (isLoading) {
     return <PageLoader />;

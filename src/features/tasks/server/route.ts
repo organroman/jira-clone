@@ -11,7 +11,6 @@ import { createTaskSchema } from "../schema";
 import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { Task, TaskStatus } from "../types";
 import { Project } from "@/features/projects/types";
-import { emit } from "process";
 
 const app = new Hono()
   .delete("/:taskId", sessionMiddleware, async (c) => {
@@ -349,6 +348,10 @@ const app = new Hono()
       }
 
       const workspaceId = workspaceIds.values().next().value;
+
+      if (!workspaceId) {
+        return c.json({ error: "Workspace ID required" }, 400);
+      }
 
       const member = await getMember({
         databases,

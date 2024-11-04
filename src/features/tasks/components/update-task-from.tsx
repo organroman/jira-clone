@@ -25,7 +25,6 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
-import { useWorkspaceId } from "@/features/workspaces/hooks/useWorkspaceId";
 import MemberAvatar from "@/features/members/components/member-avatar";
 import ProjectAvatar from "@/features/projects/components/project-avatar";
 
@@ -47,7 +46,7 @@ const UpdateTaskForm = ({
   memberOptions,
   initialValues,
 }: UpdateTaskFormProps) => {
-  const workspaceId = useWorkspaceId();
+
 
   const { mutate, isPending } = useUpdateTask();
 
