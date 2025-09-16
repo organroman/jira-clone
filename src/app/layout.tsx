@@ -10,7 +10,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Jira clone",
+  title: "Taskify",
   description: "The best app for task management",
 };
 
